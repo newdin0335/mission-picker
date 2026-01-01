@@ -252,23 +252,67 @@ export default function App() {
               </div>
 
               <div className="space-y-3">
-                <div className="border border-slate-100 rounded-lg p-3 bg-slate-50/60">
-                  <p className="text-xs text-slate-500 mb-1">오늘의 미션</p>
-                  <p className="text-sm font-medium text-slate-800">
-                    {todayMission.length > 0
-                      ? todayMission.join(', ')
-                      : '아직 미션이 없습니다.'}
-                  </p>
-                </div>
+                <div className="border border-slate-100 rounded-lg p-3 bg-slate-50/60 flex justify-between items-start gap-3">
+  <div>
+    <p className="text-xs text-slate-500 mb-1">오늘의 미션</p>
+    <p className="text-sm font-medium text-slate-800">
+      {todayMission.length > 0
+        ? todayMission.join(', ')
+        : '아직 미션이 없습니다.'}
+    </p>
+  </div>
 
-                <div className="border border-slate-100 rounded-lg p-3 bg-slate-50/60">
-                  <p className="text-xs text-slate-500 mb-1">이번 주 미션</p>
-                  <p className="text-sm font-medium text-slate-800">
-                    {weeklyMission.length > 0
-                      ? weeklyMission.join(', ')
-                      : '아직 미션이 없습니다.'}
-                  </p>
-                </div>
+  {todayMission.length > 0 && (
+    <input
+      type="checkbox"
+      className="h-4 w-4 accent-blue-500 mt-1"
+      checked={
+        localStorage.getItem(
+          getCheckKey(username, getStorageKey(username, today)),
+        ) === 'true'
+      }
+      onChange={() =>
+        toggleCheck(
+          getStorageKey(username, today),
+          localStorage.getItem(
+            getCheckKey(username, getStorageKey(username, today)),
+          ) === 'true',
+        )
+      }
+    />
+  )}
+</div>
+
+               <div className="border border-slate-100 rounded-lg p-3 bg-slate-50/60 flex justify-between items-start gap-3">
+  <div>
+    <p className="text-xs text-slate-500 mb-1">이번 주 미션</p>
+    <p className="text-sm font-medium text-slate-800">
+      {weeklyMission.length > 0
+        ? weeklyMission.join(', ')
+        : '아직 미션이 없습니다.'}
+    </p>
+  </div>
+
+  {weeklyMission.length > 0 && (
+    <input
+      type="checkbox"
+      className="h-4 w-4 accent-emerald-500 mt-1"
+      checked={
+        localStorage.getItem(
+          getCheckKey(username, getWeeklyKey(username, thisWeek)),
+        ) === 'true'
+      }
+      onChange={() =>
+        toggleCheck(
+          getWeeklyKey(username, thisWeek),
+          localStorage.getItem(
+            getCheckKey(username, getWeeklyKey(username, thisWeek)),
+          ) === 'true',
+        )
+      }
+    />
+  )}
+</div>
               </div>
 
               <div className="border-t border-slate-100 pt-3 mt-1 space-y-3">
